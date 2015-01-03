@@ -3,6 +3,8 @@ Creates a field that allows multiple selection, like a CheckboxSetField to store
 
 This field is only for frontend forms using the Bootstrap framework. It will not render properly in the CMS.
 
+## Screenshot
+
 ![screenshot](http://i.imgur.com/mcjShXe.png)
 ## Installation
 `composer require unclecheese/bootstrap-tagfield:dev-master`
