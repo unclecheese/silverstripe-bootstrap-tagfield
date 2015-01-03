@@ -15,14 +15,25 @@
 			$el.tagsinput({
 			  itemValue: 'id',
 			  itemText: 'label',
+			  freeInput: $el.data('freeinput'),
 			  typeaheadjs: {
 			    name: 'tags',
 			    displayKey: 'label',
 			    source: tags.ttAdapter()
 			  }
 			});
+
+			$el.on('beforeItemAdd', function (e) {
+				if(typeof e.item === 'string') {
+					var label = e.item;
+					e.item = {
+						label: label,
+						id: '__new__'+$el.closest('form').find('[name^='+name+']').length
+					}
+				}
+			});
 			$el.on('itemAdded', function (e) {
-				$el.after('<input type="hidden" name="'+name+'['+e.item.id+']" value="1">');
+				$el.after('<input type="hidden" name="'+name+'['+e.item.id+']" value="'+e.item.label+'">');
 			})
 			.on('itemRemoved', function (e) {
 				$el.closest('form').find('[name="'+name+'['+e.item.id+']"]').remove();
@@ -31,7 +42,6 @@
 			for(var v in vals) {				
 				$el.tagsinput('add', vals[v]);
 			}
-
 		})
 	})
 })(jQuery);

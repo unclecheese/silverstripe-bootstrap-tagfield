@@ -1,3 +1,10 @@
+/**
+ * Core changes:
+ *
+ * "add" method invokes 'beforeItemAdd' before anything else, and sets item = beforeItemAddEvent.item (69-74)
+ * "build" method does not automatically turn off freeInput (269-271)
+ * 
+ */
 (function ($) {
   "use strict";
 
@@ -58,6 +65,16 @@
     add: function(item, dontPushVal) {
       var self = this;
 
+      // raise beforeItemAdd arg
+      
+      var beforeItemAddEvent = $.Event('beforeItemAdd', { item: item, cancel: false });
+      self.$element.trigger(beforeItemAddEvent);
+      if (beforeItemAddEvent.cancel)
+        return;
+
+      item = beforeItemAddEvent.item;
+
+
       if (self.options.maxTags && self.itemsArray.length >= self.options.maxTags)
         return;
 
@@ -114,11 +131,6 @@
       if (self.items().toString().length + item.length + 1 > self.options.maxInputLength)
         return;
 
-      // raise beforeItemAdd arg
-      var beforeItemAddEvent = $.Event('beforeItemAdd', { item: item, cancel: false });
-      self.$element.trigger(beforeItemAddEvent);
-      if (beforeItemAddEvent.cancel)
-        return;
 
       // register item in internal array and map
       self.itemsArray.push(item);
@@ -240,7 +252,7 @@
      */
     pushVal: function() {
       var self = this,
-          val = $.map(self.items(), function(item) {
+          val = $.map(self.items(), function(item) {            
             return self.options.itemValue(item).toString();
           });
 
@@ -255,8 +267,8 @@
 
       self.options = $.extend({}, defaultOptions, options);
       // When itemValue is set, freeInput should always be false
-      if (self.objectItems)
-        self.options.freeInput = false;
+      // if (self.objectItems)
+      //   self.options.freeInput = false;
 
       makeOptionItemFunction(self.options, 'itemValue');
       makeOptionItemFunction(self.options, 'itemText');

@@ -40,6 +40,13 @@ class BootstrapTagField extends CheckboxSetField {
 	protected $idField;
 
 	/**
+	 * Determines whether free text is allowed
+	 * 
+	 * @var boolean
+	 */
+	protected $freeInput = false;
+
+	/**
 	 * Constructor
 	 * 	
 	 * @param string $name
@@ -147,6 +154,52 @@ class BootstrapTagField extends CheckboxSetField {
 	}
 
 	/**
+	 * Enables input of free text, rather than binding to a set list of options
+	 * 
+	 * @param boolean $bool
+	 * @return  BootstrapTagField
+	 */
+	public function setFreeInput($bool = true) {
+		$this->freeInput = $bool;
+
+		return $this;
+	}
+
+	/**
+	 * Save the current value into a DataObject.
+	 * If the field it is saving to is a has_many or many_many relationship,
+	 * it is saved by setByIDList(), otherwise it creates a comma separated
+	 * list for a standard DB text/varchar field.
+	 *
+	 * @param DataObject $record The record to save into
+	 */
+	public function saveInto(DataObjectInterface $record) {
+		$fieldname = $this->name;
+		$relation = ($fieldname && $record && $record->hasMethod($fieldname)) ? $record->$fieldname() : null;
+		if($fieldname && $record && $relation &&
+			($relation instanceof RelationList || $relation instanceof UnsavedRelationList)) {
+			$idList = array();
+			if($this->value) foreach($this->value as $id => $text) {				
+				if(preg_match('/^__new__/', $id)) {
+					$id = $this->source->newObject(array(
+						$this->labelField => $text
+					))->write();
+				}
+
+				$idList[] = $id;
+			}
+			$relation->setByIDList($idList);
+		} elseif($fieldname && $record) {
+			if($this->value) {
+				$this->value = str_replace(',', '{comma}', $this->value);
+				$record->$fieldname = implode(',', (array) $this->value);
+			} else {
+				$record->$fieldname = '';
+			}
+		}
+	}	
+
+	/**
 	 * Renders the field
 	 *
 	 * @param  array $properties
@@ -162,6 +215,7 @@ class BootstrapTagField extends CheckboxSetField {
 			 ->setAttribute('data-bootstrap-tags', true)
 			 ->setAttribute('data-query-url', $this->Link('query'))
 			 ->setAttribute('data-prefetch-url', $this->Link('prefetch'))
+			 ->setAttribute('data-freeinput', $this->freeInput)
 			 ->setAttribute('class', 'text');
 		
 		return $this->renderWith(
