@@ -166,6 +166,30 @@ class BootstrapTagField extends CheckboxSetField {
 	}
 
 	/**
+	 * Sets the label field
+	 * 
+	 * @param string $field
+	 * @return  BootstrapTagField
+	 */
+	public function setLabelField($field) {
+		$this->labelField = $field;
+
+		return $this;
+	}
+
+	/**
+	 * Sets the ID field
+	 * 
+	 * @param string $field
+	 * @return  BootstrapTagField
+	 */
+	public function setIDField($field) {
+		$this->idField = $field;
+
+		return $this;
+	}
+
+	/**
 	 * Save the current value into a DataObject.
 	 * If the field it is saving to is a has_many or many_many relationship,
 	 * it is saved by setByIDList(), otherwise it creates a comma separated

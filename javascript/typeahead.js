@@ -525,7 +525,8 @@
             defaults = {
                 url: null,
                 thumbprint: "",
-                ttl: 24 * 60 * 60 * 1e3,
+                //ttl: 24 * 60 * 60 * 1e3,
+                ttl: 1,
                 filter: null,
                 ajax: {}
             };
@@ -612,7 +613,7 @@
         };
         Bloodhound.tokenizers = tokenizers;
         _.mixin(Bloodhound.prototype, {
-            _loadPrefetch: function loadPrefetch(o) {
+            _loadPrefetch: function loadPrefetch(o) {                
                 var that = this, serialized, deferred;
                 if (serialized = this._readFromStorage(o.thumbprint)) {
                     this.index.bootstrap(serialized);
