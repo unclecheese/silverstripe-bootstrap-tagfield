@@ -48,7 +48,7 @@ You can optionally provide a `SS_List` to be loaded into the typeahead search to
 
 Prefetch a list of popular tags:
 ```php
-BootstrapTagField::create('Tags', 'Add some tags below', Tag::get());
+BootstrapTagField::create('Tags', 'Add some tags below', Tag::get())
     ->setPrefetch(
         Tag::get()
             ->leftJoin('Post_Tags', 'TagID = Tag.ID')                            
