@@ -9,7 +9,7 @@
 			  queryTokenizer: Bloodhound.tokenizers.whitespace,
 			  prefetch: $el.attr('data-prefetch-url'),
 			  remote: $el.attr('data-query-url')+'?q=%QUERY'
-			});
+			});			
 			tags.initialize();
 
 			$el.tagsinput({
