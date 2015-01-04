@@ -128,7 +128,7 @@ class BootstrapTagField extends CheckboxSetField {
 			$values = array_keys($value);
 		}
 		else if(is_string($value)) {
-			$values = explode(',', $values);
+			$values = explode(',', $value);
 			$values = str_replace('{comma}', ',', $values);
 		}
 
@@ -163,6 +163,26 @@ class BootstrapTagField extends CheckboxSetField {
 		$this->freeInput = $bool;
 
 		return $this;
+	}
+
+
+	public function setValue($val, $obj = null) {
+		$values = array ();
+		if(is_array($val)) {
+			foreach($val as $id => $text) {
+				if(preg_match('/^__new__/', $id)) {
+					$id = $this->source->newObject(array(
+						$this->labelField => $text
+					))->write();
+				}
+				$values[$id] = $text;
+			}
+			parent::setValue($values, $obj);			
+		}
+		else {
+			parent::setValue($val, $obj);
+		}
+		
 	}
 
 	/**
