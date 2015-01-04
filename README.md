@@ -1,5 +1,5 @@
 # Bootstrap Tag Field for SilverStripe
-Creates a field that allows multiple selection, like a CheckboxSetField to store in a `many_many`, `has_many`, or native field (as comma separated values) and provides *typeahead* searching with *prefetching* and *caching* on a given result set. Useful for multiple selection of a densely populated data set, like tags.
+Creates a field that allows multiple selection, like a CheckboxSetField to store in a `many_many`, `has_many`, or native field (as comma separated values) and provides **typeahead** searching with **prefetching** and **caching** on a given result set. Useful for multiple selection of a densely populated data set, like tags.
 
 This field is only for frontend forms using the Bootstrap framework. It will not render properly in the CMS.
 
