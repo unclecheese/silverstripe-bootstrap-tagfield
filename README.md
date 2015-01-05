@@ -5,7 +5,7 @@ This field is only for frontend forms using the Bootstrap framework. It will not
 
 ## Screenshot
 
-![screenshot](http://i.imgur.com/mcjShXe.png)
+![screenshot](https://cloud.githubusercontent.com/assets/654636/5621984/0406af24-95a1-11e4-9c61-0b25f7899dc3.png)
 ## Installation
 `composer require unclecheese/bootstrap-tagfield:dev-master`
 
