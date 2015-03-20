@@ -1,6 +1,6 @@
 {
-    "name": "unclecheese/bootstrap-tagfield",
-    "description": "Allows you to create field that allows multiple selection of records, such as tags, compliant with Bootstrap 3",
+    "name": "andrelohmann-silverstripe/bootstrap-tagfield",
+    "description": "Allows you to create field that allows multiple selection of records, such as tags, compliant with Bootstrap 3; Fork of unclecheese",
     "type": "silverstripe-module",
     "keywords": ["silverstripe", "bootstrap", "tags", "twitter"],
 	"license": "BSD-3-Clause",
@@ -8,12 +8,15 @@
     {
         "name": "Uncle Cheese",
         "email": "unclecheese@leftandmain.com"
+    },
+    {
+        "name": "Andre Lohmann",
+        "homepage": "https://github.com/andrelohmann"
     }
     ],
     "require":
     {
-        "silverstripe/framework": "3.*",
-	    "silverstripe/cms": "3.*",
-        "unclecheese/bootstrap-forms": "1.1.*"
+		"php": ">=5.3.2",
+		"composer/installers": "*"
     }    
 }
