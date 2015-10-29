@@ -131,10 +131,14 @@ class BootstrapTagField extends CheckboxSetField {
 			$values = explode(',', $value);
 			$values = str_replace('{comma}', ',', $values);
 		}
-
-		return $this->formatJSON($this->source->filter(array(
-			$this->idField => $values
-		)));
+		
+		if(count($values) > 0){
+			return $this->formatJSON($this->source->filter(array(
+				$this->idField => $values
+			)));
+		}else{
+			return Convert::array2json(array());
+		}
 	}
 
 	/**
