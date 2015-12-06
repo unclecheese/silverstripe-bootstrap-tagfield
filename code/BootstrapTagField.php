@@ -174,12 +174,17 @@ class BootstrapTagField extends CheckboxSetField {
 		$values = array ();
 		if(is_array($val)) {
 			foreach($val as $id => $text) {
+				// only add if not doubled
+				$add = true;
 				if(preg_match('/^__new__/', $id)) {
-					$id = $this->source->newObject(array(
-						$this->labelField => $text
-					))->write();
+					// only add if not doubled
+					if(!$this->source->filter($this->labelField, $text)->first())
+						$id = $this->source->newObject(array(
+							$this->labelField => $text
+						))->write();
+					else $add = false;
 				}
-				$values[$id] = $text;
+				if($add) $values[$id] = $text;
 			}
 			parent::setValue($values, $obj);			
 		}
@@ -227,14 +232,18 @@ class BootstrapTagField extends CheckboxSetField {
 		if($fieldname && $record && $relation &&
 			($relation instanceof RelationList || $relation instanceof UnsavedRelationList)) {
 			$idList = array();
-			if($this->value) foreach($this->value as $id => $text) {				
+			if($this->value) foreach($this->value as $id => $text) {
+				// only add if not doubled
+				$add = true;
 				if(preg_match('/^__new__/', $id)) {
-					$id = $this->source->newObject(array(
-						$this->labelField => $text
-					))->write();
+					// only add if not doubled
+					if(!$this->source->filter($this->labelField, $text)->first())
+						$id = $this->source->newObject(array(
+							$this->labelField => $text
+						))->write();
+					else $add = false;
 				}
-
-				$idList[] = $id;
+				if($add) $idList[] = $id;
 			}
 			$relation->setByIDList($idList);
 		} elseif($fieldname && $record) {
@@ -269,5 +278,16 @@ class BootstrapTagField extends CheckboxSetField {
 		return $this->renderWith(
 			$this->getTemplates()
 		);
+	}
+	
+	/**
+	 * Needs to overwrite the CheckboxSetField Validator, to always validate to true
+	 *
+	 * @param Validator $validator
+	 *
+	 * @return bool
+	 */
+	public function validate($validator) {
+		return true;
 	}
 }
