@@ -13,7 +13,7 @@ This field is only for frontend forms using the Bootstrap framework. It will not
 
 ## Requirements
 
-Silverstripe 3.2.x
+Silverstripe 3.6.x
 
 ## Usage
 
