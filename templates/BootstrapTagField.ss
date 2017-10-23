@@ -1,1 +1,1 @@
-<input $AttributesHTML>
+<input name="$Name" $getAttributesHTML("name")>

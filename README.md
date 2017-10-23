@@ -6,12 +6,14 @@ This field is only for frontend forms using the Bootstrap framework. It will not
 ## Screenshot
 
 ![screenshot](https://cloud.githubusercontent.com/assets/654636/5621984/0406af24-95a1-11e4-9c61-0b25f7899dc3.png)
-## Installation
-`composer require unclecheese/bootstrap-tagfield:dev-master`
+## Maintainers
+
+ * Andre Lohmann (Nickname: andrelohmann)
+  <lohmann dot andre at googlemail dot com>
 
 ## Requirements
-- silverstripe/framework 3.1.*
-- unclecheese/bootstrap-forms 1.1.*
+
+Silverstripe 3.6.x
 
 ## Usage
 
